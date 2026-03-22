@@ -156,6 +156,14 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .diary-panel h3{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);letter-spacing:2px;margin-bottom:14px;}
 .diary-entry{font-size:12px;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--border);line-height:1.5;}
 
+/* Continue button */
+.btn-continue{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;color:var(--purple3);background:transparent;border:1px solid rgba(92,58,138,.4);padding:6px 16px;border-radius:3px;cursor:pointer;transition:all .2s;display:block;margin:10px 0 0 auto;}
+.btn-continue:hover{background:rgba(92,58,138,.1);border-color:var(--purple3);}
+
+/* Intro Kostyan row */
+.intro-kostyan-row{display:flex;gap:18px;align-items:flex-start;margin-bottom:16px;}
+@media(max-width:600px){.intro-kostyan-row{flex-direction:column;align-items:center;}.intro-kostyan-row .kostyan-portrait-block{flex-direction:row;gap:12px;align-items:flex-start;width:100%;}.intro-kostyan-row .kostyan-frame{width:90px;flex-shrink:0;}}
+
 /* Shake */
 .shake{animation:shake .5s ease;}
 @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);}}
@@ -199,13 +207,83 @@ footer{padding:18px;text-align:center;font-size:12px;color:var(--text2);opacity:
   </div>
 
   <!-- Random event -->
-  <div id="random-event-block" class="random-event" style="display:none"></div>
+  <div id="random-event-block" class="random-event" style="display:none">
+    <span id="random-event-text"></span>
+    <button class="btn-continue" onclick="dismissRandomEvent()">Продолжить →</button>
+  </div>
 
   <!-- INTRO -->
   <div id="intro-screen">
     <div class="intro">
       <div class="intro-title">☩ Добро пожаловать в замок</div>
-      <div class="intro-text">Сырой коридор. Факелы чадят. В конце зала — скелет в камзоле советника с моноклем и аристократическими усами. Он явно пережил нескольких хозяев.<br><br>Поворачивается: <em>«Хозяин. Костян. Советник. Был им при вашем предшественнике. Где он сейчас — сами видите: вон тот стул. Вам нужны золото и армия нежити. Потеряете одно — конец. Продержитесь двадцать пять ситуаций — станете монархом. Приступим?»</em></div>
+      <div class="intro-kostyan-row">
+        <div class="kostyan-portrait-block">
+          <div class="kostyan-frame">
+            <svg width="148" height="192" viewBox="0 0 110 142" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="ks-glow2"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <radialGradient id="bone-grad2" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#f0ece0"/><stop offset="100%" stop-color="#c8c4b0"/></radialGradient>
+                <clipPath id="mono-clip2"><circle cx="70" cy="62" r="9"/></clipPath>
+              </defs>
+              <rect width="110" height="142" fill="#080810"/>
+              <radialGradient id="vignette2" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="transparent"/><stop offset="100%" stop-color="rgba(0,0,0,0.55)"/></radialGradient>
+              <rect width="110" height="142" fill="url(#vignette2)"/>
+              <path d="M30 115 Q20 130 22 145 L88 145 Q90 130 80 115 Q70 108 55 108 Q40 108 30 115Z" fill="#1a1228" stroke="#3d2560" stroke-width="1.5"/>
+              <path d="M38 115 Q55 120 72 115 L70 108 Q55 112 40 108Z" fill="#2d1b4e" stroke="#5c3a8a" stroke-width="1"/>
+              <path d="M46 108 L55 125 L64 108 Q55 112 46 108Z" fill="#c9941a" opacity=".7"/>
+              <path d="M50 108 L55 118 L60 108" fill="#e8b030" opacity=".5"/>
+              <path d="M30 115 Q16 124 10 135 Q8 140 10 142" stroke="url(#bone-grad2)" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <line x1="10" y1="142" x2="6" y2="148" stroke="url(#bone-grad2)" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="10" y1="142" x2="11" y2="149" stroke="url(#bone-grad2)" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="10" y1="142" x2="15" y2="147" stroke="url(#bone-grad2)" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M80 115 Q94 124 100 135 Q102 140 100 142" stroke="url(#bone-grad2)" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <line x1="100" y1="142" x2="96" y2="148" stroke="url(#bone-grad2)" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="100" y1="142" x2="100" y2="149" stroke="url(#bone-grad2)" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="100" y1="142" x2="104" y2="147" stroke="url(#bone-grad2)" stroke-width="2.5" stroke-linecap="round"/>
+              <rect x="50" y="98" width="10" height="12" rx="2" fill="url(#bone-grad2)"/>
+              <g style="transform-origin:55px 72px;animation:ks-tilt 6s ease-in-out infinite;">
+                <ellipse cx="55" cy="68" rx="22" ry="26" fill="url(#bone-grad2)" stroke="#d0ccbc" stroke-width="1"/>
+                <ellipse cx="50" cy="55" rx="8" ry="5" fill="white" opacity=".12"/>
+                <ellipse cx="36" cy="76" rx="5" ry="4" fill="#d8d4c4"/>
+                <ellipse cx="74" cy="76" rx="5" ry="4" fill="#d8d4c4"/>
+                <path d="M36 80 Q35 92 42 96 Q55 100 68 96 Q75 92 74 80" fill="url(#bone-grad2)" stroke="#c8c4b0" stroke-width="1"/>
+                <path d="M52 96 Q55 99 58 96" stroke="#b8b4a4" stroke-width=".8" fill="none"/>
+                <ellipse cx="44" cy="68" rx="8" ry="9" fill="#0d0d18"/>
+                <ellipse cx="66" cy="68" rx="8" ry="9" fill="#0d0d18"/>
+                <ellipse cx="44" cy="68" rx="5" ry="5.5" fill="#4a9e6b" filter="url(#ks-glow2)" style="animation:ks-glow-anim 2.5s ease-in-out infinite;"/>
+                <ellipse cx="66" cy="68" rx="5" ry="5.5" fill="#4a9e6b" filter="url(#ks-glow2)" style="animation:ks-glow-anim 2.5s ease-in-out infinite .4s;"/>
+                <ellipse cx="44" cy="68" rx="2.5" ry="3" fill="#1a3a2a"/>
+                <ellipse cx="66" cy="68" rx="2.5" ry="3" fill="#1a3a2a"/>
+                <rect x="36" y="59" width="16" height="18" rx="4" fill="url(#bone-grad2)" style="transform-origin:44px 68px;animation:ks-blink 5s ease-in-out infinite;"/>
+                <rect x="58" y="59" width="16" height="18" rx="4" fill="url(#bone-grad2)" style="transform-origin:66px 68px;animation:ks-blink 5s ease-in-out infinite .06s;"/>
+                <path d="M51 76 L55 82 L59 76 Q56 78 55 78 Q54 78 51 76Z" fill="#0d0d18"/>
+                <rect x="44" y="92" width="5" height="7" rx="1.5" fill="white"/>
+                <rect x="50.5" y="92" width="5" height="8" rx="1.5" fill="white"/>
+                <rect x="57" y="92" width="5" height="7" rx="1.5" fill="white"/>
+                <rect x="63" y="93" width="4" height="6" rx="1.5" fill="#f0ece0"/>
+                <path d="M38 87 Q42 83 48 86 Q44 89 40 88 Q38 88 38 87Z" fill="#d0ccbc" stroke="#b8b4a4" stroke-width=".5"/>
+                <path d="M72 87 Q68 83 62 86 Q66 89 70 88 Q72 88 72 87Z" fill="#d0ccbc" stroke="#b8b4a4" stroke-width=".5"/>
+                <path d="M48 86 Q52 84 55 84 Q58 84 62 86" stroke="#b8b4a4" stroke-width="1.2" fill="none"/>
+                <circle cx="66" cy="66" r="10" fill="none" stroke="#c9941a" stroke-width="1.5"/>
+                <circle cx="66" cy="66" r="10" fill="rgba(201,148,26,.06)" clip-path="url(#mono-clip2)"/>
+                <path d="M76 66 Q80 62 82 58 Q84 54 80 52" stroke="#c9941a" stroke-width=".8" fill="none" stroke-dasharray="2,2"/>
+                <rect x="34" y="32" width="42" height="26" rx="2" fill="#0f0f18" stroke="#2d1b4e" stroke-width="1.5"/>
+                <rect x="28" y="56" width="54" height="7" rx="2" fill="#151520" stroke="#2d1b4e" stroke-width="1.5"/>
+                <rect x="34" y="52" width="42" height="5" fill="#2d1b4e"/>
+                <rect x="34" y="53" width="42" height="2" fill="#5c3a8a" opacity=".5"/>
+                <line x1="38" y1="35" x2="38" y2="56" stroke="white" stroke-width=".8" opacity=".08"/>
+                <path d="M55 44 L57 52 L54 58" stroke="#b8b4a4" stroke-width=".7" fill="none" opacity=".4"/>
+                <path d="M38 70 L42 74" stroke="#b8b4a4" stroke-width=".7" fill="none" opacity=".3"/>
+              </g>
+            </svg>
+          </div>
+          <div class="kostyan-name-tag">Костян · советник</div>
+        </div>
+        <div style="flex:1;">
+          <div class="intro-text">Сырой коридор. Факелы чадят. В конце зала — скелет в камзоле советника с моноклем и аристократическими усами. Явно пережил нескольких хозяев.</div>
+          <div style="margin-top:12px;background:var(--bg3);border:1px solid rgba(92,58,138,.4);border-left:3px solid var(--purple3);border-radius:3px;padding:12px 14px;font-size:15px;line-height:1.65;color:var(--text);font-style:italic;">«Хозяин. Костян. Советник. Был им при вашем предшественнике. Где он сейчас — сами видите: вон тот стул.<br><br>Вам нужны золото и армия нежити. Потеряете одно — конец. Начинаете с <strong style="color:var(--gold);font-style:normal;">35 золотых</strong> и <strong style="color:var(--undead);font-style:normal;">15 мертвецами</strong>. Продержитесь двадцать пять ситуаций — станете монархом.<br><br>Приступим?»</div>
+        </div>
+      </div>
       <div id="record-display" class="record-badge" style="display:none"></div>
       <button class="btn-start" onclick="startGame()">Приступить к правлению</button>
     </div>
@@ -419,8 +497,8 @@ const EMOJIS = {
 };
 
 // ══ STATE ══
-let G={}, diary=[];
-function fresh(){diary=[];return{gold:50,undead:20,rep:30,step:0,queue:[]};}
+let G={}, diary=[], pendingLoad=false;
+function fresh(){diary=[];return{gold:35,undead:15,rep:30,step:0,queue:[]};}
 
 // ══ SITUATIONS ══
 const SITS=[
@@ -909,13 +987,14 @@ function play(c,s){
     const ev=REVENTS[Math.floor(Math.random()*REVENTS.length)];
     G.gold+=ev.g; G.undead+=ev.u; G.rep=Math.max(0,Math.min(100,G.rep+(ev.r||0)));
     const rb=document.getElementById('random-event-block');
-    rb.textContent='✦ '+ev.t;
+    document.getElementById('random-event-text').textContent='✦ '+ev.t;
     rb.style.display='block';
     updateRes();
+    pendingLoad=true;
   }
 
-  if(extra){flash('⚠ '+extra,true);setTimeout(()=>checkEnd(s,c,extra),1200);}
-  else checkEnd(s,c,null);
+  if(extra) flash('⚠ '+extra,true);
+  if(!pendingLoad) setTimeout(()=>checkEnd(s,c,extra||null), extra?1200:300);
 
   const net=gd+ud;
   if(c.risk&&extra)setTimeout(()=>showKostyan(kl('bad')),700);
@@ -923,7 +1002,18 @@ function play(c,s){
   else if(net<=-15)setTimeout(()=>showKostyan(kl('bad')),700);
 }
 
+function dismissRandomEvent(){
+  document.getElementById('random-event-block').style.display='none';
+  pendingLoad=false;
+  // check lose conditions after random event applied
+  if(G.gold<=0){defeat('gold','случайное событие','');return;}
+  if(G.undead<=0){defeat('undead','случайное событие','');return;}
+  if(G.step>=25){victory();return;}
+  setTimeout(()=>loadSit(),200);
+}
+
 function checkEnd(s,c,ex){
+  if(pendingLoad) return; // wait for player to dismiss event
   if(G.gold<=0){defeat('gold',`${c.n}: ${ex||c.d}`,s.title);return;}
   if(G.undead<=0){defeat('undead',`${c.n}: ${ex||c.d}`,s.title);return;}
   if(G.step>=25){victory();return;}
