@@ -900,7 +900,6 @@ function showKostyan(text){
   b.classList.remove('visible');
   void b.offsetWidth;
   b.classList.add('visible');
-  setTimeout(()=>b.classList.remove('visible'),10000);
 }
 
 function updateRes(anim){
@@ -942,6 +941,7 @@ function startGame(){
 
 function loadSit(){
   if(G.step>=25){victory();return;}
+  document.getElementById('ks-bubble').classList.remove('visible');
   // 25-я ситуация выбирается динамически
   if(G.step===24) G.queue[24]=pickFinal();
   const s=G.queue[G.step];
