@@ -43,7 +43,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 @keyframes bump{0%{transform:scale(1);}40%{transform:scale(1.25);}100%{transform:scale(1);}}
 
 /* Random event */
-.random-event{background:var(--bg3);border:1px solid rgba(92,58,138,.4);border-left:3px solid var(--purple3);border-radius:3px;padding:10px 14px;margin-bottom:14px;font-size:14px;color:var(--text2);font-style:italic;animation:fadeSlide .4s ease;}
+.random-event{background:var(--bg3);border:1px solid rgba(92,58,138,.4);border-left:3px solid var(--purple3);border-radius:3px;padding:12px 16px;margin-bottom:14px;font-size:15px;color:var(--text);font-style:italic;animation:fadeSlide .4s ease;}
 
 /* Situation */
 .situation-wrap{animation:fadeSlide .5s ease;}
@@ -157,8 +157,11 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .diary-entry{font-size:12px;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--border);line-height:1.5;}
 
 /* Continue button */
-.btn-continue{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;color:var(--purple3);background:transparent;border:1px solid rgba(92,58,138,.4);padding:6px 16px;border-radius:3px;cursor:pointer;transition:all .2s;display:block;margin:10px 0 0 auto;}
-.btn-continue:hover{background:rgba(92,58,138,.1);border-color:var(--purple3);}
+.btn-continue{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:transparent;border:1px solid var(--gold);padding:7px 18px;border-radius:3px;cursor:pointer;transition:all .2s;display:block;margin:12px 0 0 auto;}
+.btn-continue:hover{background:rgba(201,148,26,.12);box-shadow:0 0 12px rgba(201,148,26,.2);}
+
+/* Random event effects row */
+.revent-effects{display:flex;gap:8px;flex-wrap:wrap;margin-top:7px;}
 
 /* Intro Kostyan row */
 .intro-kostyan-row{display:flex;gap:18px;align-items:flex-start;margin-bottom:16px;}
@@ -209,7 +212,8 @@ footer{padding:18px;text-align:center;font-size:12px;color:var(--text2);opacity:
   <!-- Random event -->
   <div id="random-event-block" class="random-event" style="display:none">
     <span id="random-event-text"></span>
-    <button class="btn-continue" onclick="dismissRandomEvent()">Продолжить →</button>
+    <div class="revent-effects" id="random-event-effects"></div>
+    <button class="btn-continue" onclick="dismissRandomEvent()">Продолжить</button>
   </div>
 
   <!-- INTRO -->
@@ -988,6 +992,13 @@ function play(c,s){
     G.gold+=ev.g; G.undead+=ev.u; G.rep=Math.max(0,Math.min(100,G.rep+(ev.r||0)));
     const rb=document.getElementById('random-event-block');
     document.getElementById('random-event-text').textContent='✦ '+ev.t;
+    // effects
+    let fx='';
+    if(ev.g!==0) fx+=`<span class="eff ${ev.g>0?'pg':'ng'}">${ev.g>0?'+':''}${ev.g}💰</span>`;
+    if(ev.u!==0) fx+=`<span class="eff ${ev.u>0?'pu':'nu'}">${ev.u>0?'+':''}${ev.u}💀</span>`;
+    if(ev.r&&ev.r!==0) fx+=`<span class="eff ${ev.r>0?'pg':'ng'}">${ev.r>0?'+':''}${ev.r} реп.</span>`;
+    if(!fx) fx='<span class="eff" style="color:var(--text2);border-color:var(--border);">без изменений</span>';
+    document.getElementById('random-event-effects').innerHTML=fx;
     rb.style.display='block';
     updateRes();
     pendingLoad=true;
